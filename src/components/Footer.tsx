@@ -33,7 +33,7 @@ export const Footer = ({ isRTL }: FooterProps) => {
             </a>
             <span className="text-muted-foreground text-xs">•</span>
             <a href="#" className="text-muted-foreground hover:text-primary text-xs transition-colors">
-              {isRTL ? 'شروط الاستخدام' : 'Terms of Service'}
+              {isRTL ? 'شروط الاستخدام' : 'Terms of Servicessss'}
             </a>
           </div>
         </div>
