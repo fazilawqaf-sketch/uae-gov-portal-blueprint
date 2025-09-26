@@ -92,36 +92,36 @@ export const Header = ({ onLanguageChange }: HeaderProps) => {
     <header className="bg-card shadow-uae border-b border-border">
       {/* Top Header */}
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between py-4">
+        <div className="flex items-center justify-between py-2">
           {/* Left Section - UAE Logo & Theme Switcher */}
-          <div className="flex items-center gap-6">
-            <img src={uaeLogo} alt="UAE Coat of Arms" className="h-16 w-16" />
+          <div className="flex items-center gap-4">
+            <img src={uaeLogo} alt="UAE Coat of Arms" className="h-12 w-12" />
             <ThemeSwitcher />
           </div>
 
           {/* Right Section - Authority Logo */}
           <div className="flex-1 flex justify-end">
-            <img src={authorityLogo} alt="Authority Logo" className="h-12 max-w-md object-contain" />
+            <img src={authorityLogo} alt="Authority Logo" className="h-10 max-w-xs object-contain" />
           </div>
         </div>
 
         {/* Navigation Section */}
-        <div className="flex items-center justify-between py-3 border-t border-border">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between py-2 border-t border-border gap-3 lg:gap-0">
           {/* Main Navigation */}
-          <nav className="flex items-center gap-8">
+          <nav className="flex flex-wrap items-center gap-2 lg:gap-6">
             {menuItems.map((item) => (
               <div key={item.name} className="relative group">
                 {item.submenu ? (
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="text-foreground hover:text-primary hover:bg-secondary flex items-center gap-1">
+                      <Button variant="ghost" className="text-foreground hover:text-primary hover:bg-primary/10 border-b-2 border-transparent hover:border-primary transition-all duration-200 rounded-none flex items-center gap-1 text-sm px-2 py-1">
                         {isRTL ? item.nameAr : item.name}
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="h-3 w-3" />
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-card border-border shadow-card">
+                    <DropdownMenuContent className="bg-card border-border shadow-lg z-50">
                       {item.submenu.map((subItem) => (
-                        <DropdownMenuItem key={subItem.href} className="hover:bg-secondary">
+                        <DropdownMenuItem key={subItem.href} className="hover:bg-primary/10 hover:text-primary">
                           <a href={subItem.href} className="w-full">
                             {isRTL ? subItem.nameAr : subItem.name}
                           </a>
@@ -132,7 +132,7 @@ export const Header = ({ onLanguageChange }: HeaderProps) => {
                 ) : (
                   <a 
                     href={item.href} 
-                    className="text-foreground hover:text-primary hover:bg-secondary px-3 py-2 rounded-md transition-colors"
+                    className="text-foreground hover:text-primary hover:bg-primary/10 border-b-2 border-transparent hover:border-primary transition-all duration-200 px-2 py-1 text-sm rounded-none"
                   >
                     {isRTL ? item.nameAr : item.name}
                   </a>
@@ -142,7 +142,7 @@ export const Header = ({ onLanguageChange }: HeaderProps) => {
           </nav>
 
           {/* Right Section - Search, Language, Time */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-2 lg:gap-4">
             {/* Search */}
             <div className="relative">
               <div className="relative">
@@ -152,7 +152,7 @@ export const Header = ({ onLanguageChange }: HeaderProps) => {
                   placeholder={isRTL ? "البحث..." : "Search..."}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 w-64 bg-input border-border"
+                  className="pl-10 w-48 lg:w-64 bg-input border-border text-sm"
                 />
               </div>
               {showSearchResults && searchResults.length > 0 && (

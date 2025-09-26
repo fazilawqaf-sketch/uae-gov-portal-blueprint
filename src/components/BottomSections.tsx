@@ -1,162 +1,198 @@
-import { useState } from 'react';
-import { ChevronLeft, ChevronRight, Calendar, Bell, User, ExternalLink } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState, useEffect } from 'react';
+import { Calendar, Users, Newspaper, MessageSquare } from 'lucide-react';
 
 interface BottomSectionsProps {
   isRTL: boolean;
 }
 
-const newEmployees = [
+const sections = [
   {
-    id: 1,
-    nameEn: 'Saeed Ayed Saeed Al Ketbi',
-    nameAr: 'سعيد عايد سعيد الكتبي',
-    positionEn: 'Head of Sharia Research and Studies Section',
-    positionAr: 'رئيس قسم البحوث والدراسات الشرعية',
-    department: 'Sharia Research and Studies Section',
-    departmentAr: 'قسم البحوث والدراسات الشرعية',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'
-  }
-];
-
-const events = [
-  {
-    id: 1,
-    date: 'September 2025',
-    image: 'https://images.unsplash.com/photo-1569592651122-ace7bb74a6b5?w=400&h=200&fit=crop',
-    titleEn: 'UAE National Day Celebration',
-    titleAr: 'احتفالية اليوم الوطني للإمارات',
-  }
-];
-
-const announcements = [
-  {
-    id: 1,
-    date: '22 September 2025',
-    titleEn: 'Zakat Calculation Guidelines',
-    titleAr: 'إرشادات حساب الزكاة',
-    type: 'announcement'
+    titleEn: 'Events',
+    titleAr: 'الفعاليات',
+    icon: Calendar,
+    items: [
+      {
+        titleEn: 'UAE National Day Celebration',
+        titleAr: 'احتفالية اليوم الوطني للإمارات',
+        descriptionEn: 'Join us in celebrating UAE National Day with special events and activities',
+        descriptionAr: 'انضم إلينا في الاحتفال باليوم الوطني للإمارات مع فعاليات وأنشطة خاصة',
+        date: 'Sep 26',
+        location: 'Abu Dhabi'
+      },
+      {
+        titleEn: 'Islamic Heritage Festival',
+        titleAr: 'مهرجان التراث الإسلامي',
+        descriptionEn: 'Celebrating rich Islamic heritage and culture in the UAE',
+        descriptionAr: 'احتفال بالتراث والثقافة الإسلامية الغنية في دولة الإمارات',
+        date: 'Oct 15',
+        location: 'Dubai'
+      },
+      {
+        titleEn: 'Community Outreach Program',
+        titleAr: 'برنامج التواصل المجتمعي',
+        descriptionEn: 'Engaging with local communities to promote Islamic values',
+        descriptionAr: 'التفاعل مع المجتمعات المحلية لتعزيز القيم الإسلامية',
+        date: 'Nov 3',
+        location: 'Sharjah'
+      }
+    ]
   },
   {
-    id: 2,
-    date: '22 September 2025',
-    titleEn: 'Endowment Donations Process',
-    titleAr: 'عملية التبرعات الوقفية',
-    type: 'announcement'
+    titleEn: 'New Employees',
+    titleAr: 'الموظفون الجدد',
+    icon: Users,
+    items: [
+      {
+        titleEn: 'Saeed Al Ketbi',
+        titleAr: 'سعيد الكتبي',
+        descriptionEn: 'Head of Sharia Research and Studies Section',
+        descriptionAr: 'رئيس قسم البحوث والدراسات الشرعية',
+        date: 'Sep 20',
+        location: 'Research Dept'
+      },
+      {
+        titleEn: 'Mariam Al Zaabi',
+        titleAr: 'مريم الزعابي',
+        descriptionEn: 'Islamic Affairs Specialist',
+        descriptionAr: 'أخصائية الشؤون الإسلامية',
+        date: 'Sep 22',
+        location: 'Islamic Affairs'
+      },
+      {
+        titleEn: 'Ahmed Al Mansouri',
+        titleAr: 'أحمد المنصوري',
+        descriptionEn: 'Endowments Coordinator',
+        descriptionAr: 'منسق الأوقاف',
+        date: 'Sep 25',
+        location: 'Endowments'
+      }
+    ]
+  },
+  {
+    titleEn: 'News',
+    titleAr: 'الأخبار',
+    icon: Newspaper,
+    items: [
+      {
+        titleEn: 'Digital Transformation Initiative',
+        titleAr: 'مبادرة التحول الرقمي',
+        descriptionEn: 'Launching comprehensive digital services for better citizen experience',
+        descriptionAr: 'إطلاق خدمات رقمية شاملة لتحسين تجربة المواطنين',
+        date: 'Sep 25',
+        location: 'Abu Dhabi'
+      },
+      {
+        titleEn: 'Zakat Collection Campaign',
+        titleAr: 'حملة جمع الزكاة',
+        descriptionEn: 'Annual zakat collection campaign begins across the UAE',
+        descriptionAr: 'تبدأ حملة جمع الزكاة السنوية في جميع أنحاء الإمارات',
+        date: 'Sep 23',
+        location: 'Nationwide'
+      },
+      {
+        titleEn: 'Interfaith Dialogue Conference',
+        titleAr: 'مؤتمر الحوار بين الأديان',
+        descriptionEn: 'International conference promoting interfaith understanding',
+        descriptionAr: 'مؤتمر دولي لتعزيز التفاهم بين الأديان',
+        date: 'Oct 10',
+        location: 'Dubai'
+      }
+    ]
+  },
+  {
+    titleEn: 'Announcements',
+    titleAr: 'الإعلانات',
+    icon: MessageSquare,
+    items: [
+      {
+        titleEn: 'Prayer Times Update',
+        titleAr: 'تحديث أوقات الصلاة',
+        descriptionEn: 'Updated prayer times for the winter season',
+        descriptionAr: 'أوقات الصلاة المحدثة لفصل الشتاء',
+        date: 'Sep 26',
+        location: 'UAE'
+      },
+      {
+        titleEn: 'Endowment Guidelines',
+        titleAr: 'إرشادات الأوقاف',
+        descriptionEn: 'New guidelines for endowment donations and management',
+        descriptionAr: 'إرشادات جديدة لتبرعات وإدارة الأوقاف',
+        date: 'Sep 24',
+        location: 'All Emirates'
+      },
+      {
+        titleEn: 'Ramadan Preparation',
+        titleAr: 'الاستعداد لرمضان',
+        descriptionEn: 'Early preparations for the upcoming holy month',
+        descriptionAr: 'الاستعدادات المبكرة للشهر الفضيل المقبل',
+        date: 'Jan 15',
+        location: 'UAE'
+      }
+    ]
   }
 ];
 
 export const BottomSections = ({ isRTL }: BottomSectionsProps) => {
-  const [currentEventIndex, setCurrentEventIndex] = useState(0);
+  const [currentIndices, setCurrentIndices] = useState([0, 0, 0, 0]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndices(prev => prev.map((index, sectionIndex) => {
+        const maxItems = sections[sectionIndex].items.length;
+        return (index + 1) % maxItems;
+      }));
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-      {/* New Employees */}
-      <Card className="shadow-card hover:shadow-uae transition-shadow animate-fade-in">
-        <CardHeader>
-          <CardTitle className="text-center text-primary border-b border-primary/20 pb-2">
-            {isRTL ? 'الموظفون الجدد' : 'New Employees'}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-center">
-          {newEmployees.map((employee) => (
-            <div key={employee.id} className="space-y-4">
-              <div className="mx-auto w-24 h-24 rounded-full bg-gradient-uae p-1">
-                <div className="w-full h-full rounded-full bg-muted flex items-center justify-center">
-                  <User className="h-12 w-12 text-primary" />
-                </div>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6">
+      {sections.map((section, sectionIndex) => {
+        const currentItem = section.items[currentIndices[sectionIndex]];
+        return (
+          <div key={section.titleEn} className="bg-card rounded-lg shadow-card p-3 lg:p-4 h-48 lg:h-52">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="p-2 bg-primary/10 rounded-lg">
+                <section.icon className="h-4 w-4 lg:h-5 lg:w-5 text-primary" />
               </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-bold text-primary text-lg">
-                  {isRTL ? employee.nameAr : employee.nameEn}
-                </h4>
-                <p className="text-sm text-muted-foreground font-medium">
-                  {isRTL ? employee.positionAr : employee.positionEn}
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  {isRTL ? employee.departmentAr : employee.department}
-                </p>
-              </div>
-
-              <div className="flex justify-center gap-2">
-                {[1, 2, 3, 4].map((num) => (
-                  <Button key={num} variant="outline" size="sm" className="w-8 h-8 rounded-full p-0">
-                    {num}
-                  </Button>
-                ))}
-              </div>
+              <h3 className="font-bold text-foreground text-sm lg:text-base">
+                {isRTL ? section.titleAr : section.titleEn}
+              </h3>
             </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      {/* Events */}
-      <Card className="shadow-card hover:shadow-uae transition-shadow animate-fade-in">
-        <CardHeader>
-          <CardTitle className="text-center text-primary border-b border-primary/20 pb-2 flex items-center justify-between">
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            {isRTL ? 'الفعاليات' : 'Events'}
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="text-center">
-          {events.map((event) => (
-            <div key={event.id} className="space-y-4">
-              <div className="bg-primary/10 text-primary font-bold py-2 px-4 rounded-lg">
-                {event.date}
-              </div>
-              
-              <div className="relative h-32 rounded-lg overflow-hidden bg-muted">
-                <div className="absolute inset-0 bg-gradient-to-r from-green-600 via-white to-red-600 opacity-20" />
-                <div className="absolute inset-0 bg-primary/10" />
-                <div className="relative h-full flex items-center justify-center">
-                  <div className="text-center space-y-2">
-                    <Calendar className="h-8 w-8 mx-auto text-primary" />
-                    <p className="text-sm font-medium text-foreground">
-                      {isRTL ? event.titleAr : event.titleEn}
-                    </p>
+            
+            <div className="h-32 lg:h-36 overflow-hidden">
+              <div className="transition-all duration-500 ease-in-out transform">
+                <div className="border-l-4 border-primary/30 pl-3 h-full">
+                  <h4 className="font-semibold text-foreground mb-2 text-sm lg:text-base line-clamp-2">
+                    {isRTL ? currentItem.titleAr : currentItem.titleEn}
+                  </h4>
+                  <p className="text-muted-foreground text-xs lg:text-sm mb-2 line-clamp-3">
+                    {isRTL ? currentItem.descriptionAr : currentItem.descriptionEn}
+                  </p>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <span>{currentItem.date}</span>
+                    <span>•</span>
+                    <span className="truncate">{currentItem.location}</span>
                   </div>
                 </div>
               </div>
             </div>
-          ))}
-        </CardContent>
-      </Card>
-
-      {/* Announcements */}
-      <Card className="shadow-card hover:shadow-uae transition-shadow animate-fade-in">
-        <CardHeader>
-          <CardTitle className="text-center text-primary border-b border-primary/20 pb-2">
-            {isRTL ? 'الإعلانات' : 'Announcements'}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          {announcements.map((announcement) => (
-            <div key={announcement.id} className="border-b border-border last:border-b-0 pb-4 last:pb-0">
-              <div className="flex items-start justify-between mb-2">
-                <div className="text-sm text-primary font-bold">
-                  {announcement.date}
-                </div>
-                <ExternalLink className="h-4 w-4 text-muted-foreground hover:text-primary cursor-pointer" />
-              </div>
-              
-              <h4 className="font-medium text-foreground mb-2">
-                {isRTL ? announcement.titleAr : announcement.titleEn}
-              </h4>
-              
-              <Button variant="outline" size="sm" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground">
-                {isRTL ? 'المزيد...' : 'More...'}
-              </Button>
+            
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-1 mt-2">
+              {section.items.map((_, index) => (
+                <div
+                  key={index}
+                  className={`w-1.5 h-1.5 rounded-full transition-colors ${
+                    index === currentIndices[sectionIndex] ? 'bg-primary' : 'bg-muted-foreground/30'
+                  }`}
+                />
+              ))}
             </div>
-          ))}
-        </CardContent>
-      </Card>
+          </div>
+        );
+      })}
     </div>
   );
 };

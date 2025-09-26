@@ -57,7 +57,7 @@ const socialMedia = [
 
 export const MainSections = ({ isRTL }: MainSectionsProps) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-6 mb-6">
       {/* My Tasks */}
       <Card className="shadow-card hover:shadow-uae transition-shadow animate-fade-in">
         <CardHeader className="pb-3">

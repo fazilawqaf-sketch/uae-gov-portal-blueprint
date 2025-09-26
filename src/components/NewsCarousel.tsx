@@ -58,7 +58,7 @@ export const NewsCarousel = ({ isRTL }: NewsCarouselProps) => {
         isRTL ? (prev === 0 ? newsItems.length - 1 : prev - 1)
              : (prev === newsItems.length - 1 ? 0 : prev + 1)
       );
-    }, 5000);
+    }, 8000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, isRTL]);
@@ -80,10 +80,10 @@ export const NewsCarousel = ({ isRTL }: NewsCarouselProps) => {
   const currentNews = newsItems[currentIndex];
 
   return (
-    <div className="bg-card rounded-lg shadow-card p-6 mb-8">
+    <div className="bg-card rounded-lg shadow-card p-3 lg:p-6 mb-4 lg:mb-6">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold text-primary flex items-center gap-2">
-          <div className="w-1 h-6 bg-primary rounded-full" />
+        <h3 className="text-lg lg:text-xl font-bold text-primary flex items-center gap-2">
+          <div className="w-1 h-4 lg:h-6 bg-primary rounded-full" />
           {isRTL ? 'آخر الأخبار' : 'Latest News'}
         </h3>
         <div className="flex items-center gap-2">
@@ -93,7 +93,7 @@ export const NewsCarousel = ({ isRTL }: NewsCarouselProps) => {
             onClick={prevSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="h-8 w-8"
+            className="h-6 w-6 lg:h-8 lg:w-8"
           >
             {isRTL ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
           </Button>
@@ -103,7 +103,7 @@ export const NewsCarousel = ({ isRTL }: NewsCarouselProps) => {
             onClick={nextSlide}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
-            className="h-8 w-8"
+            className="h-6 w-6 lg:h-8 lg:w-8"
           >
             {isRTL ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
           </Button>
