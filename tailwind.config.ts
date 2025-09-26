@@ -22,10 +22,27 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          dark: "hsl(var(--primary-dark))",
+          light: "hsl(var(--primary-light))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
+        },
+        uae: {
+          gold: "hsl(var(--uae-gold))",
+          "gold-dark": "hsl(var(--uae-gold-dark))",
+          "gold-light": "hsl(var(--uae-gold-light))",
+          red: "hsl(var(--uae-red))",
+          green: "hsl(var(--uae-green))",
+          black: "hsl(var(--uae-black))",
+          white: "hsl(var(--uae-white))",
+        },
+        theme: {
+          gold: "hsl(var(--theme-gold))",
+          green: "hsl(var(--theme-green))",
+          blue: "hsl(var(--theme-blue))",
+          red: "hsl(var(--theme-red))",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
@@ -84,6 +101,14 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "slide-left": "slide-left 30s linear infinite",
+        "slide-right": "slide-right 30s linear infinite",
+        "fade-in": "fade-in 0.6s ease-out forwards",
+        "scale-in": "scale-in 0.4s ease-out forwards",
+      },
+      fontFamily: {
+        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        arabic: ['Cairo', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
     },
   },
